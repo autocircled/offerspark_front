@@ -1,8 +1,10 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FaWindows, FaApple } from 'react-icons/fa';
 
 interface Offer {
   id: number;
+  slug: string;
   title: string;
   subtitle: string;
   description: string;
@@ -23,6 +25,7 @@ const OfferCards = () => {
   const offers: Offer[] = [
   {
     id: 1,
+    slug: "office-professional-plus-2021",
     title: "Office Professional Plus 2021",
     subtitle: "Office 2021, 2019, 2018 Lifetime Use for Windows or MAC",
     description: "Office Lifetime Access for One PC or Mac",
@@ -40,6 +43,7 @@ const OfferCards = () => {
   },
   {
     id: 2,
+    slug: "microsoft-windows-11-professional",
     title: "Microsoft Windows 11 Professional",
     subtitle: "Microsoft Windows 11 Professional or Home – Lifetime Activation",
     description: "Microsoft Windows 11 Professional",
@@ -54,6 +58,7 @@ const OfferCards = () => {
   },
   {
     id: 3,
+    slug: "microsoft-office-lifetime-for-pc-or-mac",
     title: "Microsoft Office Lifetime for PC or Mac",
     subtitle: "Up to 92% Off on Microsoft Office Lifetime 2019 or 2021 for PC or Mac",
     description: "", // added
@@ -69,6 +74,7 @@ const OfferCards = () => {
   },
   {
     id: 4,
+    slug: "semaglutide-or-tirzepatide-weight-loss-program-with-consultation",
     title: "Semaglutide or Tirzepatide Weight Loss Program with Consultation",
     subtitle: "GameloRX",
     description: "", // added
@@ -82,6 +88,7 @@ const OfferCards = () => {
   },
   {
     id: 5,
+    slug: "up-to-90-off-on-house-room-cleaning-at-small-home-sweet-home-cleaning-services",
     title: "Up to 90% Off on House / Room Cleaning at Small Home Sweet Home Cleaning Services*",
     subtitle: "Small Home Sweet Home Cleaning Services",
     description: "", // added
@@ -95,6 +102,7 @@ const OfferCards = () => {
   },
   {
     id: 6,
+    slug: "elegant-canvas-prints-for-the-perfect-home-accent",
     title: "Elegant Canvas Prints for the Perfect Home Accent",
     subtitle: "Custom Premium Canvas from Canvas On Demand",
     description: "", // added
@@ -115,18 +123,17 @@ const OfferCards = () => {
         {offers.map((offer) => (
           <div key={offer.id} className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
             {/* Offer Image Placeholder */}
-            {
-            offer.imageUrl 
-            ? <Image src={offer.imageUrl} alt="Offer Image" width={400} height={400} className="w-full h-48 object-cover" />
-            : <div className="bg-gray-200 h-48 flex items-center justify-center">
-              <span className="text-gray-500">Product Image</span>
-            </div>
-            }
-            
+            <Link href={`/deal/${offer.slug}`}>
+              {offer.imageUrl 
+              ? <Image src={offer.imageUrl} alt="Offer Image" width={400} height={400} className="w-full h-48 object-cover" />
+              : <div className="bg-gray-200 h-48 flex items-center justify-center">
+                <span className="text-gray-500">Product Image</span>
+              </div>}
+            </Link>
             <div className="p-4">
               {/* Title and Icons */}
               <div className="flex justify-between items-start mb-2">
-                <h3 className="font-bold text-lg">{offer.title}</h3>
+                <Link href={`/deal/${offer.slug}`}><h3 className="font-bold text-lg">{offer.title}</h3></Link>
                 {(offer.isWindows || offer.isMac) && (
                   <div className="flex space-x-2">
                     {offer.isWindows && <FaWindows className="text-blue-500" size={20} />}
