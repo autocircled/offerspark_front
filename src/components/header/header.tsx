@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useState } from 'react';
 import { FiSearch, FiMenu, FiX, FiUser, FiShoppingCart } from 'react-icons/fi';
 
@@ -8,17 +9,17 @@ const Header = () => {
   const [location, setLocation] = useState('Chicago');
 
   const navItems = [
-    "Father's Day",
-    "Beauty & Spas",
-    "Things To Do",
-    "Auto & Home",
-    "Food & Drink",
-    "Gifts",
-    "Local",
-    "Travel",
-    "Goods",
-    "Coupons"
-  ];
+    { label: "Father's Day", slug: "/local/fathers-day" },
+    { label: "Beauty & Spas", slug: "/local/beauty-and-spas" },
+    { label: "Things To Do", slug: "/local/things-to-do" },
+    { label: "Auto & Home", slug: "/local/auto-and-home" },
+    { label: "Food & Drink", slug: "/local/food-and-drink" },
+    { label: "Gifts", slug: "/local/gifts" },
+    { label: "Local", slug: "/local/local" },
+    { label: "Travel", slug: "/local/travel" },
+    { label: "Goods", slug: "/local/goods" },
+    { label: "Coupons", slug: "/local/coupons" }
+];
 
   return (
     <header className="bg-white shadow-md">
@@ -33,7 +34,9 @@ const Header = () => {
             >
               {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </button>
-            <h1 className="text-2xl font-bold text-red-600">OfferSpark</h1>
+            <Link href="/">
+              <h1 className="text-2xl font-bold text-red-600">OfferSpark</h1>
+            </Link>
           </div>
 
           {/* Search Bar - Hidden on mobile */}
@@ -103,13 +106,13 @@ const Header = () => {
       <nav className="hidden md:block bg-gray-50 border-t border-gray-200">
         <div className="container mx-auto px-4">
           <ul className="flex space-x-6 overflow-x-auto py-3 hide-scrollbar">
-            {navItems.map((item) => (
-              <li key={item}>
+            {navItems.map((item, index) => (
+              <li key={index}>
                 <a
-                  href="#"
+                  href={item.slug}
                   className="whitespace-nowrap text-sm font-medium text-gray-700 hover:text-red-600"
                 >
-                  {item}
+                  {item.label}
                 </a>
               </li>
             ))}
@@ -122,13 +125,13 @@ const Header = () => {
         <div className="md:hidden bg-white border-t border-gray-200">
           <div className="container mx-auto px-4 py-3">
             <ul className="space-y-3">
-              {navItems.map((item) => (
-                <li key={item}>
+              {navItems.map((item, index) => (
+                <li key={index}>
                   <a
-                    href="#"
+                    href={item.slug}
                     className="block py-2 text-gray-700 hover:text-red-600"
                   >
-                    {item}
+                    {item.label}
                   </a>
                 </li>
               ))}
