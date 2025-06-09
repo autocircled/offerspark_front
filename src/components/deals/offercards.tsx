@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaWindows, FaApple } from 'react-icons/fa';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 interface Offer {
   id: number;
@@ -121,19 +124,36 @@ const OfferCards = () => {
       <h2 className="text-2xl font-bold mb-6">Today&apos;s Top Deals</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {offers.map((offer) => (
-          <div key={offer.id} className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-            {/* Offer Image Placeholder */}
+          <Card key={offer.id} className="pt-0 hover:shadow-lg transition-shadow">
             <Link href={`/deal/${offer.slug}`}>
-              {offer.imageUrl 
-              ? <Image src={offer.imageUrl} alt="Offer Image" width={400} height={400} className="w-full h-48 object-cover" />
-              : <div className="bg-gray-200 h-48 flex items-center justify-center">
-                <span className="text-gray-500">Product Image</span>
-              </div>}
+              {offer.imageUrl ? (
+                <div className="relative h-48 w-full">
+                  <Image 
+                    src={offer.imageUrl} 
+                    alt={offer.title}
+                    priority={false}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    fill
+                    className="object-cover rounded-t-lg"
+                  />
+                </div>
+              ) : (
+                <div className="bg-muted h-48 flex items-center justify-center rounded-t-lg">
+                  <span className="text-muted-foreground">Product Image</span>
+                </div>
+              )}
             </Link>
-            <div className="p-4">
-              {/* Title and Icons */}
-              <div className="flex justify-between items-start mb-2">
-                <Link href={`/deal/${offer.slug}`}><h3 className="font-bold text-lg">{offer.title}</h3></Link>
+            
+            <CardHeader>
+              <div className="flex justify-between items-start">
+                <div>
+                  <CardTitle className="text-lg hover:underline">
+                    <Link href={`/deal/${offer.slug}`}>{offer.title}</Link>
+                  </CardTitle>
+                  {offer.subtitle && (
+                    <CardDescription className="mt-1">{offer.subtitle}</CardDescription>
+                  )}
+                </div>
                 {(offer.isWindows || offer.isMac) && (
                   <div className="flex space-x-2">
                     {offer.isWindows && <FaWindows className="text-blue-500" size={20} />}
@@ -141,47 +161,43 @@ const OfferCards = () => {
                   </div>
                 )}
               </div>
-              
-              {/* Subtitle */}
-              {offer.subtitle && (
-                <p className="text-gray-600 text-sm mb-2">{offer.subtitle}</p>
-              )}
-              
-              {/* Description */}
+            </CardHeader>
+            
+            <CardContent>
               {offer.description && (
-                <p className="text-gray-700 mb-2">{offer.description}</p>
+                <p className="text-sm text-muted-foreground mb-3">{offer.description}</p>
               )}
               
-              {/* Location */}
               {offer.location && (
-                <p className="text-gray-500 text-sm mb-3">{offer.location}</p>
+                <p className="text-xs text-muted-foreground mb-4">{offer.location}</p>
               )}
               
-              {/* Price Information */}
-              <div className="mb-3">
-                <div className="flex items-center space-x-2">
-                  <span className="text-gray-400 line-through">{offer.originalPrice}</span>
-                  <span className="text-red-600 font-bold">{offer.discountedPrice}</span>
-                  <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-bold">
-                    {offer.discountPercentage}
-                  </span>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm line-through text-muted-foreground">{offer.originalPrice}</span>
+                  <span className="font-bold text-primary">{offer.discountedPrice}</span>
+                  <Badge variant="destructive">{offer.discountPercentage}</Badge>
                 </div>
-                <p className="text-sm mt-1">
-                  <span className="font-medium">{offer.finalPrice}</span> with code <span className="font-bold">{offer.couponCode}</span>
+                <p className="text-sm">
+                  <span className="font-medium">{offer.finalPrice}</span> with code{' '}
+                  <span className="font-bold text-primary">{offer.couponCode}</span>
                 </p>
               </div>
-              
-              {/* Additional Info */}
-              <div className="flex justify-between items-center text-sm">
-                {offer.whatsIncluded && (
-                  <a href="#" className="text-blue-600 hover:underline">{offer.whatsIncluded}</a>
-                )}
-                {offer.website && (
-                  <a href="#" className="text-gray-500 hover:underline">{offer.website}</a>
-                )}
-              </div>
-            </div>
-          </div>
+            </CardContent>
+            
+            <CardFooter className="flex justify-between">
+              {offer.whatsIncluded && (
+                <Button variant="link" className="p-0 h-auto text-primary">
+                  {offer.whatsIncluded}
+                </Button>
+              )}
+              {offer.website && (
+                <a href="#" className="text-sm text-muted-foreground hover:underline">
+                  {offer.website}
+                </a>
+              )}
+            </CardFooter>
+          </Card>
         ))}
       </div>
     </div>
