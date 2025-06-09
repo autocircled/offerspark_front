@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/componen
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
+import ReviewModal from '@/components/deals/review-popup';
 
 const SingleDealPage = () => {
   const deal = {
@@ -286,10 +287,12 @@ const SingleDealPage = () => {
                 </div>
               ))}
             </div>
-            
-            <Button variant="link" className="mt-6 text-primary p-0 h-auto">
-              See all {deal.reviewCount} reviews
-            </Button>
+            <Separator className="my-6" />
+            {/* <ReviewPopup /> */}
+            <ReviewModal 
+              totalReviews={1243} 
+              averageRating={4.8} 
+            />
           </CardContent>
         </Card>
       </div>
