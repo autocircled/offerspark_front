@@ -9,6 +9,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { SignInDropdown } from './signin-dropdown';
+import { CartDropdown } from './mini-cart';
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -120,14 +122,8 @@ const Header = () => {
 
           {/* User Actions */}
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="hidden md:flex">
-              <FiUser className="h-5 w-5" />
-              <span className="sr-only">Sign In</span>
-            </Button>
-            <Button variant="ghost" size="icon">
-              <FiShoppingCart className="h-5 w-5" />
-              <span className="sr-only">Cart</span>
-            </Button>
+            <SignInDropdown />
+            <CartDropdown />
           </div>
         </div>
 
