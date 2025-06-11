@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { ShoppingCart } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export function CartDropdown() {
@@ -68,7 +69,7 @@ export function CartDropdown() {
                 {cartItems.map((item) => (
                   <div key={item.id} className="flex gap-3">
                     <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border">
-                      <img
+                      <Image
                         src={item.image}
                         alt={item.name}
                         className="h-full w-full object-cover"
