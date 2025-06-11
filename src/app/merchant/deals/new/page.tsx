@@ -17,7 +17,6 @@ import { format } from "date-fns";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import EditorClient from "@/components/editor/texteditor";
 
 // Dynamically import Jodit to avoid SSR issues
 // const JoditEditor = dynamic(() => import("jodit-react"), { 
@@ -131,7 +130,7 @@ export default function CreateDealPage() {
 
                 <div className="space-y-2">
                   <Label>Full Description*</Label>
-                  <EditorClient />
+                  
                 </div>
               </CardContent>
             </Card>
